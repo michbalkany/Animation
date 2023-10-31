@@ -8,25 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var animationAmount = 1.0
+    @State private var animationAmount = 0.0
+    
     var body: some View {
         
-        print(animationAmount)
-        
-        return VStack {
-            Stepper("Scale Amount", value: $animationAmount.animation(), in: (1...10))
-            
-            Spacer()
-            
-            Button("Tap Me"){
-                animationAmount += 1
+        Button("Tap Me") {
+            withAnimation(.spring(duration: 1, bounce: 0.5)) {
+                animationAmount += 360
             }
-            .padding(40)
-            .background(.red)
-            .foregroundStyle(.white)
-            .clipShape(.circle)
-            .scaleEffect(animationAmount)
         }
+        .padding(50)
+        .background(.red)
+        .foregroundStyle(.white)
+        .clipShape(.circle)
+        .rotation3DEffect(.degrees(animationAmount), axis: (x: 1, y: 1, z: 1))
     }
 }
 
